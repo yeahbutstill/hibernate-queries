@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- * Created by jt on 8/28/21.
- */
 @Component
 public class AuthorDaoImpl implements AuthorDao {
 
@@ -21,6 +18,19 @@ public class AuthorDaoImpl implements AuthorDao {
     @Autowired
     public AuthorDaoImpl(EntityManagerFactory emf) {
         this.emf = emf;
+    }
+
+    @Override
+    public List<Author> findAll() {
+        EntityManager em = getEntityManager();
+
+        try {
+            TypedQuery<Author> typedQuery = em.createNamedQuery("author_find_all", Author.class);
+
+            return typedQuery.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     @Override

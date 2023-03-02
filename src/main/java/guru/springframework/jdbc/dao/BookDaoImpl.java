@@ -7,9 +7,6 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by jt on 8/29/21.
- */
 @Component
 public class BookDaoImpl implements BookDao {
     private final EntityManagerFactory emf;

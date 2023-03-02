@@ -18,9 +18,6 @@ import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-/**
- * Created by jt on 8/28/21.
- */
 @ActiveProfiles("local")
 @DataJpaTest
 @Import({AuthorDaoImpl.class, BookDaoImpl.class})
@@ -32,6 +29,14 @@ class DaoIntegrationTest {
 
     @Autowired
     BookDao bookDao;
+
+    @Test
+    void testFindAllAuthors() {
+        List<Author> authors = authorDao.findAll();
+
+        assertThat(authors).isNotNull();
+        assertThat(authors.size()).isPositive();
+    }
 
     @Test
     void testFindBookByISBN() {
