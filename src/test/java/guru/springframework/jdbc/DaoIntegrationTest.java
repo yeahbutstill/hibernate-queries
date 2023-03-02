@@ -22,7 +22,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @DataJpaTest
 @Import({AuthorDaoImpl.class, BookDaoImpl.class})
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-class DaoIntegrationTest {
+public class DaoIntegrationTest {
 
     @Autowired
     AuthorDao authorDao;
@@ -35,7 +35,7 @@ class DaoIntegrationTest {
         List<Author> authors = authorDao.findAll();
 
         assertThat(authors).isNotNull();
-        assertThat(authors.size()).isPositive();
+        assertThat(authors.size()).isGreaterThan(0);
     }
 
     @Test
@@ -55,7 +55,7 @@ class DaoIntegrationTest {
         List<Author> authors = authorDao.listAuthorByLastNameLike("Wall");
 
         assertThat(authors).isNotNull();
-        assertThat(authors.size()).isPositive();
+        assertThat(authors.size()).isGreaterThan(0);
     }
 
     @Test
@@ -118,6 +118,13 @@ class DaoIntegrationTest {
     }
 
     @Test
+    void testGetBookByTitleCriteria() {
+        Book book = bookDao.findBookByTitleCriteria("Clean Code");
+
+        assertThat(book).isNotNull();
+    }
+
+    @Test
     void testGetBook() {
         Book book = bookDao.getById(3L);
 
@@ -168,8 +175,31 @@ class DaoIntegrationTest {
     }
 
     @Test
+    void testFindAllBooks() {
+        List<Book> books = bookDao.findAll();
+
+        assertThat(books).isNotNull();
+        assertThat(books.size()).isGreaterThan(0);
+    }
+
+    @Test
+    void testFindBookByTitle() {
+        Book book = new Book();
+        book.setIsbn("1235" + RandomString.make());
+        book.setTitle("TITLETEST2");
+
+        Book saved = bookDao.saveNewBook(book);
+
+        Book fetched = bookDao.findBookByTitle(book.getTitle());
+        assertThat(fetched).isNotNull();
+
+        bookDao.deleteBookById(saved.getId());
+    }
+
+    @Test
     void testGetAuthorByNameCriteria() {
         Author author = authorDao.findAuthorByNameCriteria("Craig", "Walls");
+
         assertThat(author).isNotNull();
     }
 
@@ -182,8 +212,10 @@ class DaoIntegrationTest {
 
     @Test
     void testGetAuthor() {
+
         Author author = authorDao.getById(1L);
 
         assertThat(author).isNotNull();
+
     }
 }
