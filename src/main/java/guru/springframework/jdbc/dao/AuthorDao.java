@@ -4,8 +4,8 @@ import guru.springframework.jdbc.domain.Author;
 
 import java.util.List;
 
-public interface AuthorDao {
 
+public interface AuthorDao {
     List<Author> findAll();
 
     List<Author> listAuthorByLastNameLike(String lastName);
@@ -20,8 +20,7 @@ public interface AuthorDao {
 
     void deleteAuthorById(Long id);
 
-    Author findAuthorByNameCriteria(String firstName, String lastName);
+    Author findAuthorByNameCriteria(String craig, String walls);
 
-    Author findAuthorByNameNative(String craig, String walls);
-
+    Author findAuthorByNameNative(String firstName, String lastName);
 }

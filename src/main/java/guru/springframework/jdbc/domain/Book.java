@@ -1,8 +1,6 @@
 package guru.springframework.jdbc.domain;
 
-
 import jakarta.persistence.*;
-
 import java.util.Objects;
 
 @NamedQueries({

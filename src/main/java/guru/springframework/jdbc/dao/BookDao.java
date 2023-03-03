@@ -4,15 +4,15 @@ import guru.springframework.jdbc.domain.Book;
 
 import java.util.List;
 
+
 public interface BookDao {
-
-    List<Book> findAll();
-
     Book findByISBN(String isbn);
 
     Book getById(Long id);
 
     Book findBookByTitle(String title);
+
+    Book findBookByTitleCriteria(String clean_code);
 
     Book saveNewBook(Book book);
 
@@ -20,5 +20,7 @@ public interface BookDao {
 
     void deleteBookById(Long id);
 
-    Book findBookByTitleCriteria(String title);
+    List<Book> findAll();
+
+    Book findBookByTitleNative(String title);
 }
