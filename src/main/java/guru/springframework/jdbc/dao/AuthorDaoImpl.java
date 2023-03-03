@@ -135,6 +135,18 @@ public class AuthorDaoImpl implements AuthorDao {
         }
     }
 
+    @Override
+    public Author findAuthorByNameNative(String craig, String walls) {
+        EntityManager em = getEntityManager();
+
+        try {
+            Query query = em.createNativeQuery("")
+            return typedQuery.getSingleResult();
+        } finally {
+            em.close();
+        }
+    }
+
     private EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
